@@ -5,5 +5,5 @@ close all; %closes all open figures
 truss('final_data.txt')
 
 
-truss_e('final_data.txt', 30)
+truss_e('final_data.txt')
 
