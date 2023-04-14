@@ -1,7 +1,7 @@
-function truss_d(file_name);
+function truss_d(file_name_in, file_name_out);
 % OPEN DATA FILE
 angle=58.01;
-fid = fopen(file_name, 'r');
+fid = fopen(file_name_in, 'r');
 % READ DATA - READ NODE DATA - First read the number of nodes in the truss
 Number_nodes = fscanf(fid, '%d', 1);
 % Read the coordinates for each node
@@ -139,20 +139,42 @@ end
 % output deformation text file
 
 
-output = zeros(Number_nodes/2, 2);
+deformation = zeros(Number_nodes, 2);
 
 tick = 1;
-for i = 1:Number_nodes/2
+for i = 1:Number_nodes*2
     if mod(i,2) == 1
-        output(tick, 1) = out(i);
+        deformation(tick, 1) = out(i);
     else
-        output(tick, 2) = out(i);
+        deformation(tick, 2) = out(i);
         tick = tick + 1;
     end
     
 end
 
-    
+Coordinate = Coordinate + deformation;
+
+
+delete(file_name_out)
+fid2 = fopen(file_name_out, 'w');
+fprintf(fid2, '%g\n', Number_nodes);
+
+for i = 1:Number_nodes
+    %Node_r = fscanf(fid2, '%d', 1);
+    fprintf(fid2, '%g', i);
+    fprintf(fid2, '\40');
+    fprintf(fid2, '%g', Coordinate(i, 1));
+    fprintf(fid2, '\40');
+    fprintf(fid2, '%g\15', Coordinate(i, 2));
+
+
+end
+
+
+
+
+
+fclose(fid2);
 end % End of program
 
 

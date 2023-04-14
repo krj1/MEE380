@@ -5,5 +5,5 @@ close all; %closes all open figures
 truss('final_data.txt')
 
 
-truss_e('final_data.txt')
+truss_e('final_data.txt', 'truss_deformation.txt')
 
