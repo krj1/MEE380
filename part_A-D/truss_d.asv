@@ -73,10 +73,10 @@ angle=58.01;
      fprintf('Reaction %d = %g \n', i, A(Number_elements + i)) 
     end
 %}
-[weight,Area]=truss_tron_3000(A, Coordinate);
+[weight,Area]=truss_tron_3000(A, Coordinate)
 Forces=A([1:13]);
 E=29.5e6;
-stre
+Stress=Forces./Area;
 displacment=abs(Forces/(Area*E));
 displacment=displacment(:,1);
  
@@ -84,5 +84,5 @@ The_Element=[' 1 (AB)';' 2 (AC)';' 3 (BC)';' 4 (BD)';' 5 (BE)';' 6 (CE)';' 7 (DE
 The_Starting_Node=[' 1 (A)';' 1 (A)';' 6 (B)';' 6 (B)';' 6 (B)';' 2 (C)';' 7 (D)';' 7 (D)';' 3 (E)';' 3 (E)';' 8 (F)';' 8 (F)';' 4 (G)'];
 The_Ending_Node=  [' 6 (B)';' 2 (C)';' 2 (C)';' 7 (D)';' 3 (E)';' 3 (E)';' 3 (E)';' 8 (F)';' 8 (F)';' 4 (G)';' 4 (G)';' 5 (H)';' 5 (H)'];
 
-Table=table(The_Element,The_Starting_Node,The_Ending_Node,Forces,Area,displacment)
+Table=table(The_Element,The_Starting_Node,The_Ending_Node,Forces,Area,Stress,displacment)
 end

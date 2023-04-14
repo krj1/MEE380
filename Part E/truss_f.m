@@ -2,21 +2,8 @@ function truss_d(file_name_in, file_name_out);
 
 % Constants from part d
 angle=58.01;
-E = 29.5e6;
-Area = [0.884287375365435;
-    0.468470022766335;
-    0.500000000000000;
-    0.624626697021780;
-    0.294762458455145;
-    0.468470022766335;
-    0;
-    0.624626697021780;
-    0.294762458455145;
-    0.468470022766335;
-    0.500000000000000;
-    0.884287375365435;
-    0.468470022766335];
-
+E = 100e9;
+Area = 0.0001;
 
 
 
@@ -84,10 +71,7 @@ end
 Number_reactions = fscanf(fid, '%d', 1);
 
 
-% READ DATA - READ REACTION DATA - Now read in the reactionsNumber_reactions = fscanf(fid, '%d', 1);
-if (2*Number_nodes ~= (Number_elements + Number_reactions))
-    error('Invalid number of nodes, elements, and reactions');
-end
+
 
 BC = ones(2*Number_nodes, 1);
 

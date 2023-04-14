@@ -73,7 +73,7 @@ angle=58.01;
      fprintf('Reaction %d = %g \n', i, A(Number_elements + i)) 
     end
 %}
-[weight,Area]=truss_tron_3000(A, Coordinate);
+[weight,Area]=truss_tron_3000(A, Coordinate)
 Forces=A([1:13]);
 E=29.5e6;
 Stress=Forces./Area;

@@ -1,6 +1,32 @@
 function truss_d(file_name_in, file_name_out);
-% OPEN DATA FILE
+
+% Constants from part d
 angle=58.01;
+E = 29.5e6;
+Area = [0.884287375365435;
+    0.468470022766335;
+    0.500000000000000;
+    0.624626697021780;
+    0.294762458455145;
+    0.468470022766335;
+    0;
+    0.624626697021780;
+    0.294762458455145;
+    0.468470022766335;
+    0.500000000000000;
+    0.884287375365435;
+    0.468470022766335];
+
+for i = 1:height(Area)
+    if Area(i) == 0
+        Area(i) = mean(Area);
+    end
+end
+
+
+
+
+% OPEN DATA FILE
 fid = fopen(file_name_in, 'r');
 % READ DATA - READ NODE DATA - First read the number of nodes in the truss
 Number_nodes = fscanf(fid, '%d', 1);
@@ -23,8 +49,7 @@ end
 Number_elements=fscanf(fid, '%d', 1);
 M = zeros(Number_nodes, 2);
 K = zeros(2*Number_nodes, 2*Number_nodes);
-E = 29.5e6;
-A = 1;
+
 
 
 
@@ -47,7 +72,7 @@ for i = 1:Number_elements
      M(2*Node_to, Element) = -dy/Length;
     %}
     M(i,1:2) = [Node_from, Node_to];
-    ke = E*A/Length*[c^2 c*s -c^2 -c*s;
+    ke = E*Area(Element)/Length*[c^2 c*s -c^2 -c*s;
         c*s s^2 -c*s -s^2;
         -c^2 -c*s c^2 c*s;
         -c*s -s^2 c*s s^2];
@@ -155,7 +180,7 @@ end
 Coordinate = Coordinate + deformation;
 
 
-delete(file_name_out)
+
 fid2 = fopen(file_name_out, 'w');
 fprintf(fid2, '%g\n', Number_nodes);
 
