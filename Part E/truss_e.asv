@@ -117,20 +117,39 @@ External
 % COMPUTE FORCES - Solve the system of equations
 A = K\External;
 
+out = zeros(height(BC), 1);
 
+tick = 1;
+for i = 1:height(BC)
+    if BC(i) ~= 0
+        out(i) = A(tick);
+        tick = tick + 1;
+    end
+end
 
 % REPORT FORCES - FORCES IN THE ELEMENTS
-for i = 1:Number_elements
-     fprintf('Element %d = %g \n', i, A(i))
+
+tick = 1;
+for i = 1:2:height(BC)
+     fprintf('Element deformation in x %d = %g \n', tick, out(i))
+     fprintf('Element deformation in y %d = %g \n', tick, out(i + 1))
+     tick = tick + 1;
 end
-% REPORT FORCES - REACTION FORCES
-slacker = 1;
-for i = 1:height(BC)
-    if BC(i) == 0
-        fprintf('Reaction %d = %g \n', i, A(Number_elements + i))
-        fprintf('Reaction %d = %g \n', i, A(Number_elements + i))
-        slacker = slacker + 1;
+
+% output deformation text file
+
+
+output = zeros(Number_nodes/2, 2)
+
+tick = 1;
+for i = 1:Number_nodes
+    if mod(i,2) == 1
+        output(tick, 1) = A(i);
+    else
+        output(tick, 2) = A(i);
     end
+end
+
     
 end % End of program
 
