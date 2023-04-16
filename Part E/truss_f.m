@@ -98,11 +98,11 @@ for i=1:Number_forces
     
     Force = Force * 1000; % converting from kips to lbs
     
-    forceX = Force * sind(Direction);
-    forceY = Force * cosd(Direction);
+    forceY = Force * sind(Direction);
+    forceX = Force * cosd(Direction);
     
     External(2*Node-1) = External(2*Node-1) + forceX;
-    External(2*Node) = External(2*Node) - forceY;
+    External(2*Node) = External(2*Node) + forceY;
 end
 
 for i = 1:height(BC)
